@@ -1,5 +1,6 @@
 package com.nurul.RestAPIs.service.impl;
 
+import com.nurul.RestAPIs.dto.AddStudentRequestDto;
 import com.nurul.RestAPIs.dto.StudentDto;
 import com.nurul.RestAPIs.entity.Student;
 import com.nurul.RestAPIs.repository.StudentRepository;
@@ -35,5 +36,12 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto getStudentById(Long id) {
         Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Student Not Found"));
         return modelMapper.map(student, StudentDto.class);
+    }
+
+    @Override
+    public StudentDto createStudent(AddStudentRequestDto addStudentRequestDto) {
+        Student newStudent = modelMapper.map(addStudentRequestDto,Student.class);
+        Student student = studentRepository.save(newStudent);
+        return modelMapper.map(newStudent,StudentDto.class);
     }
 }
