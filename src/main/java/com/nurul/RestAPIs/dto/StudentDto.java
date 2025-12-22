@@ -1,5 +1,8 @@
 package com.nurul.RestAPIs.dto;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class StudentDto {
     private Long id;
     private String name;
@@ -11,6 +14,7 @@ public class StudentDto {
         this.name = name;
         this.email = email;
     }
+    public StudentDto(){}
 
     public Long getId() {
         return id;
