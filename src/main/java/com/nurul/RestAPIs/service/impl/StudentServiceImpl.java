@@ -17,14 +17,14 @@ public class StudentServiceImpl implements StudentService {
         this.studentRepository = studentRepository;
     }
 
+
     @Override
     public List<StudentDto> getAllStudent() {
-
         List<Student> students = studentRepository.findAll();
-
-        List<StudentDto> studentDtoList = students
+        return students
                 .stream()
-                .map(student -> new StudentDto()).toList();
-        return studentDtoList;
+                .map(student -> new StudentDto(student.getId(), student.getName(), student.getEmail()))
+                .toList();
+
     }
 }
