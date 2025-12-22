@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
 public class StudentController {
@@ -18,14 +20,12 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public ResponseEntity<?> getAllStudent() {
+    public ResponseEntity<List<StudentDto>> getAllStudent() {
         try {
-            StudentDto studentDto = (StudentDto) studentService.getAllStudent();
-            return new ResponseEntity<>(studentDto, HttpStatus.OK);
+            List<StudentDto> studentDtoList = studentService.getAllStudent();
+            return new ResponseEntity<>(studentDtoList, HttpStatus.OK);
         } catch (RuntimeException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new RuntimeException(e);
         }
     }
-
-
 }
