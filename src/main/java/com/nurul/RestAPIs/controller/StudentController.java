@@ -72,4 +72,16 @@ public class StudentController {
             throw new RuntimeException(e);
         }
     }
+
+    //Spring  JPA Query
+    @GetMapping("/{name}/{email}")
+    public ResponseEntity<List<StudentDto>> findByNameOrEmail(@PathVariable String name, @PathVariable String email) {
+        try {
+            List<StudentDto> studentDtoList = studentService.findByNameOrEmail(name, email);
+            return new ResponseEntity<>(studentDtoList, HttpStatus.OK);
+
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
