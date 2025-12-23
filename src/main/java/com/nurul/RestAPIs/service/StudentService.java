@@ -10,4 +10,6 @@ public interface StudentService {
     StudentDto getStudentById(Long id);
 
     StudentDto createStudent(AddStudentRequestDto addStudentRequestDto);
+
+    void deleteStudentById(Long id);
 }

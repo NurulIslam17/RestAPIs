@@ -34,7 +34,7 @@ public class StudentController {
     public ResponseEntity<?> getById(@PathVariable Long id) {
         try {
             StudentDto studentDto = studentService.getStudentById(id);
-            return new ResponseEntity<>(studentDto, HttpStatus.OK);
+            return new ResponseEntity<>(studentDto, HttpStatus.FOUND);
         } catch (RuntimeException e) {
             return new ResponseEntity<>("SOmething Went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -44,7 +44,19 @@ public class StudentController {
     public ResponseEntity<StudentDto> createStudent(@RequestBody AddStudentRequestDto addStudentRequestDto) {
         try {
             StudentDto newStudent = studentService.createStudent(addStudentRequestDto);
-            return new ResponseEntity<>(newStudent, HttpStatus.OK);
+            return new ResponseEntity<>(newStudent, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStudentById(@PathVariable Long id)
+    {
+        try {
+            studentService.deleteStudentById(id);
+            return new ResponseEntity<>("Deleted",HttpStatus.OK);
+
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
