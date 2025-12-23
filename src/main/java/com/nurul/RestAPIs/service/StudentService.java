@@ -14,4 +14,6 @@ public interface StudentService {
     void deleteStudentById(Long id);
 
     StudentDto updateStudentById(Long id, AddStudentRequestDto addStudentRequestDto);
+
+    List<StudentDto> findByNameOrEmail(String name, String email);
 }

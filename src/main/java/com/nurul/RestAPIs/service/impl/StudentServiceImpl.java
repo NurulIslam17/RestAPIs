@@ -27,7 +27,7 @@ public class StudentServiceImpl implements StudentService {
         List<Student> students = studentRepository.findAll();
         return students
                 .stream()
-                .map(student -> new StudentDto(student.getId(), student.getName(), student.getEmail()))
+                .map(student -> modelMapper.map(student,StudentDto.class))
                 .toList();
 
     }
@@ -61,5 +61,13 @@ public class StudentServiceImpl implements StudentService {
         student = studentRepository.save(student);
 
         return modelMapper.map(student, StudentDto.class);
+    }
+
+    @Override
+    public List<StudentDto> findByNameOrEmail(String name, String email) {
+        List<Student> studentList = studentRepository.findByNameOrEmail(name, email);
+        return studentList
+                .stream()
+                .map(student -> modelMapper.map(student, StudentDto.class)).toList();
     }
 }
