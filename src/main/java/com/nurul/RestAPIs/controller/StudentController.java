@@ -61,4 +61,14 @@ public class StudentController {
             throw new RuntimeException(e);
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentDto> updateStudentById(@PathVariable Long id, @RequestBody AddStudentRequestDto addStudentRequestDto) {
+        try {
+            StudentDto studentDto = studentService.updateStudentById(id, addStudentRequestDto);
+            return new ResponseEntity<>(studentDto, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
