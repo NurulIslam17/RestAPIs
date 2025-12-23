@@ -1,5 +1,8 @@
 package com.nurul.RestAPIs.dto;
 
+import com.nurul.RestAPIs.entity.type.StudentType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -12,10 +15,15 @@ public class AddStudentRequestDto {
     @Email
     @NotBlank(message = "Email is required.")
     private String email;
+    private String address;
+    @Enumerated(EnumType.STRING)
+    private StudentType type;
 
-    public AddStudentRequestDto(String name, String email) {
+    public AddStudentRequestDto(String name, String email, String address, StudentType type) {
         this.name = name;
         this.email = email;
+        this.address = address;
+        this.type = type;
     }
 
     public AddStudentRequestDto() {
@@ -35,5 +43,22 @@ public class AddStudentRequestDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public StudentType getType() {
+        return type;
+    }
+
+    public void setType(StudentType type) {
+        this.type = type;
     }
 }

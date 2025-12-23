@@ -1,9 +1,10 @@
 package com.nurul.RestAPIs.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.nurul.RestAPIs.entity.type.StudentType;
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class Student {
@@ -12,7 +13,12 @@ public class Student {
     private Long id;
     private String name;
     private String email;
-
+    private String address;
+    @Enumerated(EnumType.STRING)
+    private StudentType type;
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 
     public String getName() {
         return name;
@@ -36,5 +42,29 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public StudentType getType() {
+        return type;
+    }
+
+    public void setType(StudentType type) {
+        this.type = type;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
