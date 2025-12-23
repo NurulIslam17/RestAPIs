@@ -3,6 +3,7 @@ package com.nurul.RestAPIs.controller;
 import com.nurul.RestAPIs.dto.AddStudentRequestDto;
 import com.nurul.RestAPIs.dto.StudentDto;
 import com.nurul.RestAPIs.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentDto> createStudent(@RequestBody AddStudentRequestDto addStudentRequestDto) {
+    public ResponseEntity<StudentDto> createStudent(@RequestBody @Valid AddStudentRequestDto addStudentRequestDto) {
         try {
             StudentDto newStudent = studentService.createStudent(addStudentRequestDto);
             return new ResponseEntity<>(newStudent, HttpStatus.CREATED);
@@ -63,7 +64,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StudentDto> updateStudentById(@PathVariable Long id, @RequestBody AddStudentRequestDto addStudentRequestDto) {
+    public ResponseEntity<StudentDto> updateStudentById(@PathVariable Long id, @RequestBody @Valid AddStudentRequestDto addStudentRequestDto) {
         try {
             StudentDto studentDto = studentService.updateStudentById(id, addStudentRequestDto);
             return new ResponseEntity<>(studentDto, HttpStatus.OK);
