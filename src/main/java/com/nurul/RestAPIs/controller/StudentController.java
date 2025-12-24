@@ -37,7 +37,7 @@ public class StudentController {
             StudentDto studentDto = studentService.getStudentById(id);
             return new ResponseEntity<>(studentDto, HttpStatus.FOUND);
         } catch (RuntimeException e) {
-            return new ResponseEntity<>("SOmething Went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Something Went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
