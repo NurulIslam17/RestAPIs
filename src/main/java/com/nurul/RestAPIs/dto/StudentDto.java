@@ -1,11 +1,9 @@
 package com.nurul.RestAPIs.dto;
 
 import com.nurul.RestAPIs.entity.type.StudentType;
-import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
