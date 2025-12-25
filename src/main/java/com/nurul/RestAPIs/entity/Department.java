@@ -2,6 +2,8 @@ package com.nurul.RestAPIs.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Department {
 
@@ -11,11 +13,14 @@ public class Department {
     private String name;
     private String code;
 
+    @OneToMany(mappedBy = "department")
+    private List<Student> students;
 
-    public Department(Long id, String name, String code) {
+    public Department(Long id, String name, String code, List<Student> students) {
         this.id = id;
         this.name = name;
         this.code = code;
+        this.students = students;
     }
 
     public Department() {
@@ -43,5 +48,13 @@ public class Department {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

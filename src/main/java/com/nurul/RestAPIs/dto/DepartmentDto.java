@@ -1,10 +1,11 @@
 package com.nurul.RestAPIs.dto;
 
+import com.nurul.RestAPIs.entity.Department;
+
 public class DepartmentDto {
     private Long id;
     private String name;
     private String code;
-
 
     public DepartmentDto(Long id, String name, String code) {
         this.id = id;

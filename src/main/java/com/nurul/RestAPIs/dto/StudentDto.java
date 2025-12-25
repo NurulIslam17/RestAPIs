@@ -1,5 +1,6 @@
 package com.nurul.RestAPIs.dto;
 
+import com.nurul.RestAPIs.entity.Department;
 import com.nurul.RestAPIs.entity.type.StudentType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -16,14 +17,20 @@ public class StudentDto {
     @Enumerated(EnumType.STRING)
     private StudentType type;
     private LocalDateTime createdAt;
+    private Long departmentId;
+    private String departmentName;
+    private String departmentCode;
 
-    public StudentDto(Long id, String name, String email, String address, StudentType type, LocalDateTime createdAt) {
+    public StudentDto(Long id, String name, String email, String address, StudentType type, LocalDateTime createdAt, Long departmentId, String departmentName, String departmentCode) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.address = address;
         this.type = type;
         this.createdAt = createdAt;
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.departmentCode = departmentCode;
     }
 
     public StudentDto(){}
@@ -74,5 +81,29 @@ public class StudentDto {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public String getDepartmentCode() {
+        return departmentCode;
+    }
+
+    public void setDepartmentCode(String departmentCode) {
+        this.departmentCode = departmentCode;
     }
 }

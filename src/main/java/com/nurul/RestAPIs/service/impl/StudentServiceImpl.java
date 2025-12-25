@@ -2,7 +2,9 @@ package com.nurul.RestAPIs.service.impl;
 
 import com.nurul.RestAPIs.dto.AddStudentRequestDto;
 import com.nurul.RestAPIs.dto.StudentDto;
+import com.nurul.RestAPIs.entity.Department;
 import com.nurul.RestAPIs.entity.Student;
+import com.nurul.RestAPIs.repository.DepartmentRepository;
 import com.nurul.RestAPIs.repository.StudentRepository;
 import com.nurul.RestAPIs.service.StudentService;
 import org.modelmapper.ModelMapper;
@@ -14,10 +16,12 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
+    private final DepartmentRepository departmentRepository;
     private final ModelMapper modelMapper;
 
-    public StudentServiceImpl(StudentRepository studentRepository, ModelMapper modelMapper) {
+    public StudentServiceImpl(StudentRepository studentRepository, DepartmentRepository departmentRepository, ModelMapper modelMapper) {
         this.studentRepository = studentRepository;
+        this.departmentRepository = departmentRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -40,7 +44,11 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentDto createStudent(AddStudentRequestDto addStudentRequestDto) {
+        Department department = departmentRepository.findById(addStudentRequestDto.getDepartmentId()).orElseThrow(()-> new IllegalArgumentException("Department Not Found"));
+
         Student newStudent = modelMapper.map(addStudentRequestDto,Student.class);
+        newStudent.setId(null);              // force INSERT
+        newStudent.setDepartment(department);
         Student student = studentRepository.save(newStudent);
         return modelMapper.map(newStudent,StudentDto.class);
     }
