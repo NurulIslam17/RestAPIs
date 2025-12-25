@@ -35,7 +35,6 @@ public class DepartmentController {
         try {
             DepartmentDto departmentDto = departmentService.saveDepartment(departmentRequestDto);
             return new ResponseEntity<>(departmentDto, HttpStatus.CREATED);
-
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }

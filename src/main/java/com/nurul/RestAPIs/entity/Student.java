@@ -20,6 +20,10 @@ public class Student {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     public String getName() {
         return name;
     }
@@ -66,5 +70,13 @@ public class Student {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }
