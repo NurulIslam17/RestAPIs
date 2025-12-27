@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping
 public class StudentController {
 
     private final StudentService studentService;
@@ -21,7 +21,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
+    @GetMapping("/admin/students")
     public ResponseEntity<List<StudentDto>> getAllStudent() {
         try {
             List<StudentDto> studentDtoList = studentService.getAllStudent();
@@ -31,7 +31,7 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/students/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         try {
             StudentDto studentDto = studentService.getStudentById(id);
@@ -51,7 +51,7 @@ public class StudentController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/students/{id}")
     public ResponseEntity<?> deleteStudentById(@PathVariable Long id)
     {
         try {
@@ -63,7 +63,7 @@ public class StudentController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/students/{id}")
     public ResponseEntity<StudentDto> updateStudentById(@PathVariable Long id, @RequestBody @Valid AddStudentRequestDto addStudentRequestDto) {
         try {
             StudentDto studentDto = studentService.updateStudentById(id, addStudentRequestDto);
@@ -74,7 +74,7 @@ public class StudentController {
     }
 
     //Spring  JPA Query
-    @GetMapping("/{name}/{email}")
+    @GetMapping("/admin/students/{name}/{email}")
     public ResponseEntity<List<StudentDto>> findByNameOrEmail(@PathVariable String name, @PathVariable String email) {
         try {
             List<StudentDto> studentDtoList = studentService.findByNameOrEmail(name, email);
