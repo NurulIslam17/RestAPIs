@@ -42,14 +42,9 @@ public class CourseService {
         Department department = departmentRepository.findById(courseRequestDto.getDepartmentId()).orElseThrow(() -> new IllegalArgumentException("Department Not Found"));
         Teacher teacher = teacherRepository.findById(courseRequestDto.getTeacherId()).orElseThrow(() -> new IllegalArgumentException("Teacher not found"));
 
-        System.out.println("Working Here");
-        System.out.println(courseRequestDto);
         Course courseData = modelMapper.map(courseRequestDto, Course.class);
-        System.out.println("Working Here 2");
-//        courseData.setId(null);
         courseData.setDepartment(department);
         courseData.setTeacher(teacher);
-        System.out.println("Working Here 3");
         Course course = courseRepository.save(courseData);
         return modelMapper.map(course, CourseDto.class);
     }
