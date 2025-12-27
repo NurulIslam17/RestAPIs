@@ -31,11 +31,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         final String requestTokenHeader = request.getHeader("Authorization");
-        if (requestTokenHeader == null || requestTokenHeader.startsWith("Bearer")) {
+        if (requestTokenHeader == null || !requestTokenHeader.startsWith("Bearer")) {
             filterChain.doFilter(request, response);
             return;
         }
-        String token = requestTokenHeader.split("Bearer")[1];
+        String token = requestTokenHeader.substring(7); // "Bearer ".length() = 7
+        System.out.println(token);
         String userName = authUtil.getUserNameFromToken(token);
 
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null)
