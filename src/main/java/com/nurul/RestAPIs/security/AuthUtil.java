@@ -1,6 +1,7 @@
 package com.nurul.RestAPIs.security;
 
 import com.nurul.RestAPIs.entity.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.Jwts;
 
@@ -30,5 +31,16 @@ public class AuthUtil {
                 .expiration(new Date(System.currentTimeMillis() + 1000*60*10))
                 .signWith(generateSecreteKey())
                 .compact();
+    }
+
+    public String getUserNameFromToken(String token) {
+
+        Claims claims = Jwts.parser()
+                .verifyWith(generateSecreteKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+        return claims.getSubject();
     }
 }
