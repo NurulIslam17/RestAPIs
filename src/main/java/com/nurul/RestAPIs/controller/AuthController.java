@@ -20,12 +20,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
-        try {
-            LoginResponseDto loginResponseDto = authService.login(loginRequestDto);
-            return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
-        }
+        LoginResponseDto loginResponseDto = authService.login(loginRequestDto);
+        return ResponseEntity.ok(loginResponseDto);
     }
 
     @PostMapping("/signup")

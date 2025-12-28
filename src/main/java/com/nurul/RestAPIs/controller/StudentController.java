@@ -23,12 +23,8 @@ public class StudentController {
 
     @GetMapping("/admin/students")
     public ResponseEntity<List<StudentDto>> getAllStudent() {
-        try {
             List<StudentDto> studentDtoList = studentService.getAllStudent();
-            return new ResponseEntity<>(studentDtoList, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
-        }
+            return ResponseEntity.ok(studentDtoList);
     }
 
     @GetMapping("/students/{id}")
