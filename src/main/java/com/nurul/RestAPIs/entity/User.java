@@ -54,16 +54,38 @@ public class User implements UserDetails {
         this.userName = userName;
     }
 
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<RoleType> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleType> roles) {
+        this.roles = roles;
+    }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles
                 .stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_"+role.name()))
                 .collect(Collectors.toSet());
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override
@@ -89,25 +111,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Set<RoleType> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<RoleType> roles) {
-        this.roles = roles;
     }
 }
