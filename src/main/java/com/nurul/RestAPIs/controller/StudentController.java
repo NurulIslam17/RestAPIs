@@ -27,7 +27,7 @@ public class StudentController {
             return ResponseEntity.ok(studentDtoList);
     }
 
-    @GetMapping("/students/{id}")
+    @GetMapping("/admin/students/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         try {
             StudentDto studentDto = studentService.getStudentById(id);
@@ -37,7 +37,7 @@ public class StudentController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/students")
     public ResponseEntity<StudentDto> createStudent(@RequestBody @Valid AddStudentRequestDto addStudentRequestDto) {
         try {
             StudentDto newStudent = studentService.createStudent(addStudentRequestDto);
