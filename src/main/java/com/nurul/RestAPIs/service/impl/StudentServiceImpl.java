@@ -8,6 +8,8 @@ import com.nurul.RestAPIs.repository.DepartmentRepository;
 import com.nurul.RestAPIs.repository.StudentRepository;
 import com.nurul.RestAPIs.service.StudentService;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,7 +39,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Cacheable(cacheNames = "getStudentById" , key = "#id")
     public StudentDto getStudentById(Long id) {
+        System.out.println("Fetching student for : "+id);
         Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Student Not Found"));
         return modelMapper.map(student, StudentDto.class);
     }
@@ -63,10 +67,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @CachePut(cacheNames = "getStudentById" , key = "#id")
     public StudentDto updateStudentById(Long id, AddStudentRequestDto addStudentRequestDto) {
         Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Student Not Found"));
-        modelMapper.map(addStudentRequestDto, student);
-        student = studentRepository.save(student);
+        Department department = departmentRepository.findById(addStudentRequestDto.getDepartmentId()).orElseThrow(() -> new IllegalArgumentException("Department Not Found"));
+        Student studentData = modelMapper.map(addStudentRequestDto, Student.class);
+        studentData.setId(student.getId());
+        studentData.setDepartment(department);
+        student = studentRepository.save(studentData);
 
         return modelMapper.map(student, StudentDto.class);
     }

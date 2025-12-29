@@ -40,4 +40,11 @@ public class CourseController {
             throw new RuntimeException(e);
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CourseDto> getById(@PathVariable Long id)
+    {
+        CourseDto courseDto = courseService.getById(id);
+        return ResponseEntity.ok(courseDto);
+    }
 }

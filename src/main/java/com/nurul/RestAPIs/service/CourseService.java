@@ -4,12 +4,12 @@ import com.nurul.RestAPIs.dto.CourseDto;
 import com.nurul.RestAPIs.dto.CourseRequestDto;
 import com.nurul.RestAPIs.entity.Course;
 import com.nurul.RestAPIs.entity.Department;
-import com.nurul.RestAPIs.entity.Student;
 import com.nurul.RestAPIs.entity.Teacher;
 import com.nurul.RestAPIs.repository.CourseRepository;
 import com.nurul.RestAPIs.repository.DepartmentRepository;
 import com.nurul.RestAPIs.repository.TeacherRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,5 +47,12 @@ public class CourseService {
         courseData.setTeacher(teacher);
         Course course = courseRepository.save(courseData);
         return modelMapper.map(course, CourseDto.class);
+    }
+
+    @Cacheable(cacheNames = "courseById", key = "#id")
+    public CourseDto getById(Long id) {
+        System.out.println("Course fetching  : "+id);
+        Course course = courseRepository.findById(id).orElseThrow(()->new IllegalArgumentException("Course not found"));
+        return modelMapper.map(course,CourseDto.class);
     }
 }

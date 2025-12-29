@@ -80,4 +80,18 @@ public class Student {
     public void setDepartment(Department department) {
         this.department = department;
     }
+
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", type=" + type +
+                ", createdAt=" + createdAt +
+                ", department=" + department +
+                '}';
+    }
 }

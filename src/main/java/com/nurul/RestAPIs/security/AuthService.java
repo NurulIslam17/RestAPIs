@@ -44,8 +44,6 @@ public class AuthService {
 
     public void signUp(SignupRequestDto signupRequestDto) {
 
-        System.out.println(signupRequestDto);
-
         User user = userRepository.findByUserName(signupRequestDto.getUserName()).orElse(null);
         if (user != null) {
             throw new IllegalArgumentException("User already exist");
