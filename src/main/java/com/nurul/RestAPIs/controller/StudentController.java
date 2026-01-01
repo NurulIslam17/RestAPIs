@@ -4,6 +4,8 @@ import com.nurul.RestAPIs.dto.AddStudentRequestDto;
 import com.nurul.RestAPIs.dto.StudentDto;
 import com.nurul.RestAPIs.service.StudentService;
 import jakarta.validation.Valid;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -79,5 +81,15 @@ public class StudentController {
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping("/admin/count-students")
+    public ResponseEntity<Long> getStudentCountByType(@RequestParam("type") String status) {
+       try {
+           Long count = studentService.getStudentCountByType(status);
+           return new ResponseEntity<>(count,HttpStatus.OK);
+       } catch (RuntimeException e) {
+           throw new RuntimeException(e);
+       }
     }
 }

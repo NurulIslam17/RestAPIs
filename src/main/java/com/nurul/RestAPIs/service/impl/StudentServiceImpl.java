@@ -7,6 +7,7 @@ import com.nurul.RestAPIs.entity.Student;
 import com.nurul.RestAPIs.repository.DepartmentRepository;
 import com.nurul.RestAPIs.repository.StudentRepository;
 import com.nurul.RestAPIs.service.StudentService;
+import org.jspecify.annotations.Nullable;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -88,4 +89,11 @@ public class StudentServiceImpl implements StudentService {
                 .stream()
                 .map(student -> modelMapper.map(student, StudentDto.class)).toList();
     }
+
+    @Override
+    public Long getStudentCountByType(String status) {
+        return studentRepository.getStudentCountByType(status);
+    }
+
+
 }

@@ -14,7 +14,7 @@ public class MailService {
     public void sendMail(String toMail, String subject, String body) {
         try {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-            simpleMailMessage.setFrom("admin@app.app.com");
+            simpleMailMessage.setFrom("admin@app.com");
             simpleMailMessage.setTo(toMail);
             simpleMailMessage.setSubject(subject);
             simpleMailMessage.setText(body);
