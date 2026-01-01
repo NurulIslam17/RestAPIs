@@ -7,8 +7,9 @@ This is a simple STUDENT MANAGEMENT SYSTEM where there are 3 types of users base
 ## Worked on
 
 - Java and Spring Boot
-- Spring Securities, Hibernate, CACHE, Scheduling, Job-Queue
 - JWT authentication and authorization
+- Spring Securities, Hibernate, CACHE
+- Scheduling, Job-Queue
 - Mailtrap service is used for sending email.
 - MySQL
 - Global Error Handing
@@ -21,10 +22,10 @@ This is a simple STUDENT MANAGEMENT SYSTEM where there are 3 types of users base
 
     spring:
         mail:
-          host: sandbox.smtp.mailtrap.io
+          host: your_sandbox_host.smtp.mailtrap.io
           port: 2525
-          username: 556aafdab5107d
-          password: 09c99b6e5c25b2
+          username: your_username
+          password: your_password
       
           properties:
             mail:
