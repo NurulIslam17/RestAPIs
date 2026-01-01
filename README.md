@@ -17,7 +17,7 @@ This is a simple STUDENT MANAGEMENT SYSTEM where there are 3 types of users base
 - POST for API testing
 
 
-## MAILTRAP Config
+## Mailtrap Config
 
 
     spring:
