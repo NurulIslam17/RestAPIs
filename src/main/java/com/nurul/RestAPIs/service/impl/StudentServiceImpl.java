@@ -8,6 +8,7 @@ import com.nurul.RestAPIs.repository.DepartmentRepository;
 import com.nurul.RestAPIs.repository.StudentRepository;
 import com.nurul.RestAPIs.service.StudentService;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @CacheEvict(cacheNames = "getStudentById" , key = "#id")
     public void deleteStudentById(Long id) {
         if (!studentRepository.existsById(id))
         {

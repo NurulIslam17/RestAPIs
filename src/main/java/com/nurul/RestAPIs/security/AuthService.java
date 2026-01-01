@@ -6,6 +6,7 @@ import com.nurul.RestAPIs.dto.LoginResponseDto;
 import com.nurul.RestAPIs.dto.SignupRequestDto;
 import com.nurul.RestAPIs.entity.User;
 import com.nurul.RestAPIs.entity.type.RoleType;
+import com.nurul.RestAPIs.mail.MailService;
 import com.nurul.RestAPIs.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,11 +24,14 @@ public class AuthService {
     private final AuthUtil authUtil;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthService(AuthenticationManager authenticationManager, UserRepository userRepository, AuthUtil authUtil, PasswordEncoder passwordEncoder) {
+    private final MailService mailService;
+
+    public AuthService(AuthenticationManager authenticationManager, UserRepository userRepository, AuthUtil authUtil, PasswordEncoder passwordEncoder, MailService mailService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.authUtil = authUtil;
         this.passwordEncoder = passwordEncoder;
+        this.mailService = mailService;
     }
 
 
@@ -54,6 +58,7 @@ public class AuthService {
         newUser.setPassword(passwordEncoder.encode(signupRequestDto.getPassword()));
         newUser.setRoles(signupRequestDto.getRoles());
         userRepository.save(newUser);
+        mailService.sendMail(newUser.getEmail(), "Registration Confirmation", "Your registration successfully completed.");
 
     }
 }
