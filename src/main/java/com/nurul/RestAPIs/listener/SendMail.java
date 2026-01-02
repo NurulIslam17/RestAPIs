@@ -19,7 +19,8 @@ public class SendMail {
     @EventListener
     public void handleTeacherCreateEvent(TeacherCreateEvent event)
     {
-        mailService.sendMail(event.getTeacherEmail(), "Teacher Create Event", "Your account created successfully");
+        System.out.println("Confirmation message sent to Teacher email : "+ event.getTeacherEmail());
+        mailService.sendMail(event.getTeacherEmail(), "Teacher Create Event", "Your account created successfully with email - "+ event.getTeacherEmail());
     }
 
 }
