@@ -17,7 +17,7 @@ public class NotificationSenderScheduler {
         this.mailService = mailService;
     }
 
-    @Scheduled(cron = "0 0 0/12 ? * * *")
+    @Scheduled(cron = "0 0 12 * * ?")
     public void sendPendingStudentNotificationToAdmin() {
         Long totalPendingStudentCount = studentService.getStudentCountByType("PENDING");
         String body = "There are already " + totalPendingStudentCount + " students pending. Please take necessary action.";
