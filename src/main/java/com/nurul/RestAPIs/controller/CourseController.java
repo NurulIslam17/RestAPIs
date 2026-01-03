@@ -33,9 +33,8 @@ public class CourseController {
     @PostMapping
     public ResponseEntity<CourseDto> saveCourse(@RequestBody CourseRequestDto courseRequestDto) {
         try {
-            CourseDto courseDto = courseService.courseRequestDto(courseRequestDto);
+            CourseDto courseDto = courseService.saveCourse(courseRequestDto);
             return new ResponseEntity<>(courseDto, HttpStatus.CREATED);
-
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }

@@ -89,4 +89,18 @@ public class CourseRequestDto {
     public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
     }
+
+    @Override
+    public String toString() {
+        return "CourseRequestDto{" +
+                "title='" + title + '\'' +
+                ", code='" + code + '\'' +
+                ", credit=" + credit +
+                ", price=" + price +
+                ", discountPercentage=" + discountPercentage +
+                ", duration='" + duration + '\'' +
+                ", departmentId=" + departmentId +
+                ", teacherId=" + teacherId +
+                '}';
+    }
 }
