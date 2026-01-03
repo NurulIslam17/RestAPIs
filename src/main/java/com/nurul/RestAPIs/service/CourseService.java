@@ -5,11 +5,14 @@ import com.nurul.RestAPIs.dto.CourseRequestDto;
 import com.nurul.RestAPIs.entity.Course;
 import com.nurul.RestAPIs.entity.Department;
 import com.nurul.RestAPIs.entity.Teacher;
+import com.nurul.RestAPIs.event.CourseCreateEvent;
 import com.nurul.RestAPIs.repository.CourseRepository;
 import com.nurul.RestAPIs.repository.DepartmentRepository;
 import com.nurul.RestAPIs.repository.TeacherRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,12 +24,14 @@ public class CourseService {
     private final DepartmentRepository departmentRepository;
     private final TeacherRepository teacherRepository;
     private final ModelMapper modelMapper;
+    private final ApplicationEventPublisher publisher;
 
-    public CourseService(CourseRepository courseRepository, DepartmentRepository departmentRepository, TeacherRepository teacherRepository, ModelMapper modelMapper) {
+    public CourseService(CourseRepository courseRepository, DepartmentRepository departmentRepository, TeacherRepository teacherRepository, ModelMapper modelMapper, ApplicationEventPublisher publisher) {
         this.courseRepository = courseRepository;
         this.departmentRepository = departmentRepository;
         this.teacherRepository = teacherRepository;
         this.modelMapper = modelMapper;
+        this.publisher = publisher;
     }
 
     public List<CourseDto> getAllCourse() {
@@ -38,14 +43,23 @@ public class CourseService {
                 .toList();
     }
 
-    public CourseDto courseRequestDto(CourseRequestDto courseRequestDto) {
+    @Async
+    public CourseDto saveCourse(CourseRequestDto courseRequestDto) {
         Department department = departmentRepository.findById(courseRequestDto.getDepartmentId()).orElseThrow(() -> new IllegalArgumentException("Department Not Found"));
         Teacher teacher = teacherRepository.findById(courseRequestDto.getTeacherId()).orElseThrow(() -> new IllegalArgumentException("Teacher not found"));
 
-        Course courseData = modelMapper.map(courseRequestDto, Course.class);
+        Course courseData = new Course();
+        courseData.setTitle(courseRequestDto.getTitle());
+        courseData.setCode(courseRequestDto.getCode());
+        courseData.setCredit(courseRequestDto.getCredit());
+        courseData.setPrice(courseRequestDto.getPrice());
+        courseData.setDiscountPercentage(courseRequestDto.getDiscountPercentage());
+        courseData.setDuration(courseRequestDto.getDuration());
         courseData.setDepartment(department);
         courseData.setTeacher(teacher);
+
         Course course = courseRepository.save(courseData);
+        publisher.publishEvent(new CourseCreateEvent(course.getTitle()));
         return modelMapper.map(course, CourseDto.class);
     }
 
