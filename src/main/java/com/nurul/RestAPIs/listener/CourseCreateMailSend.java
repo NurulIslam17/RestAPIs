@@ -6,6 +6,7 @@ import com.nurul.RestAPIs.event.CourseCreateEvent;
 import com.nurul.RestAPIs.mail.MailService;
 import com.nurul.RestAPIs.service.StudentService;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class CourseCreateMailSend {
         this.mailService = mailService;
     }
 
+    @Async
     @EventListener
     public void sendMailToALlSubscribedUser(CourseCreateEvent event) {
         List<StudentDto> studentDtoList = studentService.getAllStudent();

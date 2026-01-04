@@ -43,7 +43,7 @@ public class CourseService {
                 .toList();
     }
 
-    @Async
+
     public CourseDto saveCourse(CourseRequestDto courseRequestDto) {
         Department department = departmentRepository.findById(courseRequestDto.getDepartmentId()).orElseThrow(() -> new IllegalArgumentException("Department Not Found"));
         Teacher teacher = teacherRepository.findById(courseRequestDto.getTeacherId()).orElseThrow(() -> new IllegalArgumentException("Teacher not found"));
