@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,9 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Enroll> enrollList = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -81,17 +85,12 @@ public class Student {
         this.department = department;
     }
 
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", type=" + type +
-                ", createdAt=" + createdAt +
-                ", department=" + department +
-                '}';
+    public List<Enroll> getEnrollList() {
+        return enrollList;
     }
+
+    public void setEnrollList(List<Enroll> enrollList) {
+        this.enrollList = enrollList;
+    }
+
 }

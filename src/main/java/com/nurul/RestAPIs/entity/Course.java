@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Course {
@@ -28,6 +30,9 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private List<Enroll> enrollList = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -107,5 +112,13 @@ public class Course {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Enroll> getEnrollList() {
+        return enrollList;
+    }
+
+    public void setEnrollList(List<Enroll> enrollList) {
+        this.enrollList = enrollList;
     }
 }
