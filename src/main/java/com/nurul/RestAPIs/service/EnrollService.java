@@ -46,7 +46,7 @@ public class EnrollService {
         enroll.setStudent(student);
         enroll.setCourse(course);
         enroll.setCreatedAt(enrollRequestDto.getCreatedAt());
-        enroll.setCreatedAt(enrollRequestDto.getUpdatedAt());
+        enroll.setUpdatedAt(enrollRequestDto.getUpdatedAt());
         enroll.setEnrollmentStatus(enrollRequestDto.getEnrollmentStatus());
 
         Enroll saveEnroll = enrollRepository.save(enroll);
