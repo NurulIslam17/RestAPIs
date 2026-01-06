@@ -10,8 +10,10 @@ import java.time.LocalDateTime;
 public class EnrollDto {
 
     private Long id;
-    private Student student;
-    private Course course;
+    private String studentName;
+    private String studentEmail;
+    private String courseTitle;
+    private String courseCode;
     private EnrollmentStatus enrollmentStatus;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -20,10 +22,12 @@ public class EnrollDto {
 
     }
 
-    public EnrollDto(Long id, Student student, Course course, EnrollmentStatus enrollmentStatus, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public EnrollDto(Long id, String studentName, String studentEmail, String courseTitle, String courseCode, EnrollmentStatus enrollmentStatus, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.student = student;
-        this.course = course;
+        this.studentName = studentName;
+        this.studentEmail = studentEmail;
+        this.courseTitle = courseTitle;
+        this.courseCode = courseCode;
         this.enrollmentStatus = enrollmentStatus;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -37,20 +41,36 @@ public class EnrollDto {
         this.id = id;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
-    public Course getCourse() {
-        return course;
+    public String getStudentEmail() {
+        return studentEmail;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setStudentEmail(String studentEmail) {
+        this.studentEmail = studentEmail;
+    }
+
+    public String getCourseTitle() {
+        return courseTitle;
+    }
+
+    public void setCourseTitle(String courseTitle) {
+        this.courseTitle = courseTitle;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 
     public EnrollmentStatus getEnrollmentStatus() {
