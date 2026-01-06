@@ -31,7 +31,6 @@ public class EnrollController {
         }
     }
 
-    // TODO: Fix why io.jsonwebtoken.MalformedJwtException error occurs after executing this file;
     @PostMapping("/auth/enrollment")
     public ResponseEntity<EnrollDto> save(@RequestBody EnrollRequestDto enrollRequestDto) {
         try {
